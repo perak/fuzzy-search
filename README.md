@@ -25,6 +25,10 @@ Example:
     // "bear" is not found, so we want to find most similar word to give user suggestion (Did you mean...)
     if(some_cursor.count() == 0)
     {
+    	// expose entire collection
+    	some_cursor = Drinks.find({ });
+
+    	// find most similar string
         var best_word = mostSimilarString(some_cursor, "drink_name", search_string, -1);
 
         // in this example, best_word is "beer", show user a suggestion: "Did you mean beer?"
