@@ -4,4 +4,5 @@ Package.describe({
 
 Package.on_use(function (api) {
 	api.add_files('lib/fuzzy-search.js', ['client', 'server']);
+	api.export('mostSimilarString');
 });
