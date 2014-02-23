@@ -2,7 +2,7 @@
 
 Fuzzy text searching plugin for Meteor based on Levenshtein distance algorithm.
 
-Function `mostSimilarString` searches given cursor for search_string and returns the most similar one.
+Function `mostSimilarString` searches given cursor for search string and returns the most similar one.
 If you have "beer", "juice" and "milk" searching for string "bear" will return "beer".
 This also works with multiple words: if you search for "Nors Chuk" you will get "Chuck Norris".
 
@@ -11,7 +11,13 @@ This also works with multiple words: if you search for "Nors Chuk" you will get 
 2. Inside your project directory: `mrt add fuzzy-search`
 
 ## How to use
-Function `mostSimilarString(cursor, field_name, search_string, max_distance)` searches given cursor for search_string and returns the most similar one.
+Function `mostSimilarString(cursor, field_name, search_string, max_distance)` searches given cursor for search string and returns the most similar one.
+
+Parameter "max_distance" is used to limit result to less-or-more similar string in small datasets
+* -1 means "auto". Function will automaticaly set max_distance based on search_string.
+* undefined means "no limit". Searching for string "beer" can return a "wife". We don't want that! :)
+
+Function will return empty string if similar word is not found (if best word distance is greater than max_distance).
 
 Example:
 
@@ -26,18 +32,14 @@ Example:
     if(some_cursor.count() == 0)
     {
     	// expose entire collection
-    	some_cursor = Drinks.find({ });
+    	var temp_cursor = Drinks.find({ }, { drink_name: true });
 
     	// find most similar string
-        var best_word = mostSimilarString(some_cursor, "drink_name", search_string, -1);
+        var best_word = mostSimilarString(temp_cursor, "drink_name", search_string, -1);
 
         // in this example, best_word is "beer", show user a suggestion: "Did you mean beer?"
         // ...
     }
-
-Parameter "max_distance" is used to limit result to less-or-more similar string in small datasets
-* -1 means "auto". Function will automaticaly set max_distance based on search_string.
-* undefined means "no limit". Searching for string "beer" can return a "wife". We don't want that! :)
 
 
 ##TODO
