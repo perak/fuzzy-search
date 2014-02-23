@@ -3,7 +3,7 @@
   "description": "Fuzzy text searching plugin for Meteor",
   "homepage": "https://github.com/perak/fuzzy-search",
   "author": "Petar Korponaic",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "git": "https://github.com/perak/fuzzy-search.git",
   "packages": {}
 }
