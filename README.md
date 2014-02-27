@@ -1,6 +1,6 @@
 # fuzzy-search
 
-Fuzzy text searching plugin for Meteor based on Levenshtein distance algorithm.
+Fuzzy text searching plugin for Meteor based on Levenshtein distance algorithm. You can use it to implement "Did you mean..." feature in your program (and more).
 
 Function `mostSimilarString` searches given cursor for search string and returns the most similar one.
 If you have "beer", "juice" and "milk" searching for string "bear" will return "beer".
@@ -11,36 +11,78 @@ This also works with multiple words: if you search for "Nors Chuk" you will get 
 2. Inside your project directory: `mrt add fuzzy-search`
 
 ## How to use
-Function `mostSimilarString(cursor, field_name, search_string, max_distance)` searches given cursor for search string and returns the most similar one.
 
-Parameter "max_distance" is used to limit result to less-or-more similar string in small datasets
+Function searches given cursor for search string and returns the most similar one.
+
+#### Syntax:
+
+    mostSimilarString(cursor, fieldName, searchString, maxDistance, caseSensitive)
+
+
+#### Arguments:
+
+**cursor** meteor cursor object
+
+* data type: object
+* default value: *none*
+
+**fieldName** field name to search in
+
+* data type: string
+* default value: *none*
+
+**searchString** string to search
+
+* data type: string
+* default value: *none*
+
+**maxDistance** is used to limit result to less-or-more similar string in small datasets
+
+* data type: integer
+* default value: -1
 * -1 means "auto". Function will automaticaly set max_distance based on search_string.
 * undefined means "no limit". Searching for string "beer" can return a "wife". We don't want that! :)
 
-Function will return empty string if similar word is not found (if best word distance is greater than max_distance).
+**caseSensitive**
 
-Example:
+* data type: bool
+* default value: false
+
+#### Return value:
+
+Function will return most similar word or empty string if similar word is not found (if best word distance is greater than max_distance).
+
+#### Example:
 
     // If we have a collection named "Drinks" which contains "beer", "juice" and "milk"
 
-    var search_string = "bear"; // user typed "bear" instead of "beer"
+    var searchString = "bear"; // user typed "bear" instead of "beer"
 
     // search "Drinks" collection for string "bear"
-    var some_cursor = Drinks.find({ drink_name: search_string });
+    var someCursor = Drinks.find({ drink_name: searchString });
 
     // "bear" is not found, so we want to find most similar word to give user suggestion (Did you mean...)
-    if(some_cursor.count() == 0)
+    if(someCursor.count() == 0)
     {
     	// expose entire collection
-    	var temp_cursor = Drinks.find({ }, { drink_name: true });
+    	var tempCursor = Drinks.find({ }, { drink_name: true });
 
     	// find most similar string
-        var best_word = mostSimilarString(temp_cursor, "drink_name", search_string, -1);
+        var bestWord = mostSimilarString(tempCursor, "drink_name", searchString, -1, false);
 
-        // in this example, best_word is "beer", show user a suggestion: "Did you mean beer?"
+        // in this example, bestWord is "beer", show user a suggestion: "Did you mean beer?"
         // ...
     }
 
 
-##TODO
-Function is case-sensitive, it should be case-insensitive, I'l change it soon.
+##History
+
+####0.1.8
+* Added case-insensitive search
+
+##Contribute
+
+Feel free to report issues, request features, performance improvements etc.
+
+##License
+MIT
