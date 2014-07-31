@@ -77,6 +77,9 @@ Function will return most similar word or empty string if similar word is not fo
 
 ##History
 
+####0.1.9
+* Field name now can be in "dot notation", e.g. "data.name". Thanks to <a href="https://github.com/H3llT0uCh" target="_blank">Tiago</a>.
+
 ####0.1.8
 * Added case-insensitive search
 
