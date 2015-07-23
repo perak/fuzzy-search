@@ -16,7 +16,9 @@ Function searches given cursor for search string and returns the most similar on
 
 #### Syntax:
 
-    mostSimilarString(cursor, fieldName, searchString, maxDistance, caseSensitive)
+```javascript
+mostSimilarString(cursor, fieldName, searchString, maxDistance, caseSensitive)
+```
 
 
 #### Arguments:
@@ -54,26 +56,27 @@ Function will return most similar word or empty string if similar word is not fo
 
 #### Example:
 
-    // If we have a collection named "Drinks" which contains "beer", "juice" and "milk"
+```javascript
+// If we have a collection named "Drinks" which contains "beer", "juice" and "milk"
 
-    var searchString = "bear"; // user typed "bear" instead of "beer"
+var searchString = "bear"; // user typed "bear" instead of "beer"
 
-    // search "Drinks" collection for string "bear"
-    var someCursor = Drinks.find({ drink_name: searchString });
+// search "Drinks" collection for string "bear"
+var someCursor = Drinks.find({ drink_name: searchString });
 
-    // "bear" is not found, so we want to find most similar word to give user suggestion (Did you mean...)
-    if(someCursor.count() == 0)
-    {
-    	// expose entire collection
-    	var tempCursor = Drinks.find({ }, { drink_name: true });
+// "bear" is not found, so we want to find most similar word to give user suggestion (Did you mean...)
+if(someCursor.count() == 0)
+{
+	// expose entire collection
+	var tempCursor = Drinks.find({ }, { drink_name: true });
 
-    	// find most similar string
-        var bestWord = mostSimilarString(tempCursor, "drink_name", searchString, -1, false);
+	// find most similar string
+    var bestWord = mostSimilarString(tempCursor, "drink_name", searchString, -1, false);
 
-        // in this example, bestWord is "beer", show user a suggestion: "Did you mean beer?"
-        // ...
-    }
-
+    // in this example, bestWord is "beer", show user a suggestion: "Did you mean beer?"
+    // ...
+}
+```
 
 ##History
 
