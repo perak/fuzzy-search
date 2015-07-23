@@ -7,8 +7,7 @@ If you have "beer", "juice" and "milk" searching for string "bear" will return "
 This also works with multiple words: if you search for "Nors Chuk" you will get "Chuck Norris".
 
 ## How to install 
-1. `npm install -g meteorite` (if not already installed)
-2. Inside your project directory: `mrt add fuzzy-search`
+1. `meteor add perak:fuzzy-search`
 
 ## How to use
 
